@@ -23,10 +23,10 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable()) // Desativa CSRF para API REST
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers(HttpMethod.POST, "/users", "users/login").permitAll() // Libera POST no /users
+                .requestMatchers(HttpMethod.POST, "/users", "users/login", "/v1/chat").permitAll() // Libera POST no /users
                 .anyRequest().authenticated() // Qualquer outro endpoint precisa de login
-            )
-            .httpBasic(); // Autenticação Basic Auth (opcional: pode trocar para JWT depois)
+            );
+            //.httpBasic(); // Autenticação Basic Auth (opcional: pode trocar para JWT depois)
 
         return http.build();
     }

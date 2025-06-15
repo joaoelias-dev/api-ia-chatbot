@@ -62,6 +62,7 @@ public class UserService {
         return user;
     }
 
+    // Verify pass1 to pass2 to create a new user
     public boolean passwordsDoNotMatch(String pass1, String pass2){
         if(!pass1.equals(pass2)){
             throw new PasswordDoNotMacth("Passwords do not match");
