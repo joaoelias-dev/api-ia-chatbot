@@ -17,13 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @RestController
-@RequestMapping("/v1")
+@RequestMapping("/v1/chat")
 public class OllamaController {
     
     @Autowired
     OllamaService ollamaService;
 
-    @PostMapping("/chat")
+    @PostMapping
     public ResponseEntity<?> sendMessage(@RequestBody @Valid RequestMessageOllamaDTO messageOllamaDTO){
 
         String response = "";

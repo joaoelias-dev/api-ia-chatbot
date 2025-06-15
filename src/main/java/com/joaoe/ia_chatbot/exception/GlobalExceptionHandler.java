@@ -10,6 +10,11 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.joaoe.ia_chatbot.modules.user.exception.EmailAlreadyExistsException;
+import com.joaoe.ia_chatbot.modules.user.exception.PasswordDoNotMacth;
+import com.joaoe.ia_chatbot.modules.user.exception.UsernameAlreadyExistsException;
+import com.joaoe.ia_chatbot.modules.user.exception.UsernameNotFound;
+
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestControllerAdvice
@@ -47,5 +52,59 @@ public class GlobalExceptionHandler {
         );
 
         return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(apiError);
+    }
+
+    @ExceptionHandler(EmailAlreadyExistsException.class)
+    public ResponseEntity<ApiError> emailAlreadyExistsException(EmailAlreadyExistsException ex, HttpServletRequest request){
+
+        ApiError apiError = new ApiError(LocalDateTime.now(),
+            request.getRequestURI(),
+            ex.getMessage(),
+            HttpStatus.CONFLICT.value(),
+            HttpStatus.CONFLICT.name(),
+            List.of(ex.getMessage())
+        );
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(apiError);
+    }
+
+    @ExceptionHandler(UsernameAlreadyExistsException.class)
+    public ResponseEntity<ApiError> usernameAlreadyExistsException(UsernameAlreadyExistsException ex, HttpServletRequest request){
+
+        ApiError apiError = new ApiError(LocalDateTime.now(),
+            request.getRequestURI(),
+            ex.getMessage(),
+            HttpStatus.CONFLICT.value(),
+            HttpStatus.CONFLICT.name(),
+            List.of(ex.getMessage())
+        );
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(apiError);
+    }
+
+    @ExceptionHandler(PasswordDoNotMacth.class)
+    public ResponseEntity<ApiError> passwordsDoNotMatch(PasswordDoNotMacth ex, HttpServletRequest request){
+        ApiError apiError = new ApiError(LocalDateTime.now(),
+            request.getRequestURI(),
+            ex.getMessage(),
+            HttpStatus.UNPROCESSABLE_ENTITY.value(),
+            HttpStatus.UNPROCESSABLE_ENTITY.name(),
+            List.of(ex.getMessage())
+        );
+
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(apiError);
+    }
+
+    @ExceptionHandler(UsernameNotFound.class)
+    public ResponseEntity<ApiError> usernameNotFound(UsernameNotFound ex, HttpServletRequest request){
+        ApiError apiError = new ApiError(LocalDateTime.now(),
+            request.getRequestURI(),
+            ex.getMessage(),
+            HttpStatus.NOT_FOUND.value(),
+            HttpStatus.NOT_FOUND.name(),
+            List.of(ex.getMessage())
+        );
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiError);
     }
 }

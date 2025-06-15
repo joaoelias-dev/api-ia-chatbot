@@ -3,19 +3,25 @@ package com.joaoe.ia_chatbot.modules.ollama.dto.request;
 import java.io.Serializable;
 
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class RequestMessageOllamaDTO implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
-    @NotBlank(message = "O campo 'model' é obrigatório")
+    @NotBlank(message = "The 'model' field is required")
     private String model;
 
-    @NotBlank(message = "O campo 'prompt' é obrigatório")
+    @NotBlank(message = "The 'prompt' field is required")
     private String prompt;
 
     private boolean stream;
