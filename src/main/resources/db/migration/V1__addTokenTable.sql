@@ -1,4 +1,5 @@
 -- Cria extensão para geração de UUIDs
+-- Flyway:postgresql
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
 -- Cria schema (caso ainda não exista)

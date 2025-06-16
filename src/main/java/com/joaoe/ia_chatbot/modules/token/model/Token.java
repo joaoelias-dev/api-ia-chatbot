@@ -1,4 +1,4 @@
-package com.joaoe.ia_chatbot.modules.token;
+package com.joaoe.ia_chatbot.modules.token.model;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

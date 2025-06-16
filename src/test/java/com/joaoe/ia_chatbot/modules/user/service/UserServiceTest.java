@@ -1,48 +1,89 @@
 package com.joaoe.ia_chatbot.modules.user.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import com.joaoe.ia_chatbot.modules.user.model.User;
+import com.joaoe.ia_chatbot.modules.user.repository.UserRepository;
 
 @SpringBootTest
 @ActiveProfiles("test")
 public class UserServiceTest {
 
-    @Mock
-    UserService userService;
+    @Autowired
+    private UserService userService;
+
+    @MockitoBean
+    private UserRepository userRepository;
+
+    @MockitoBean
+    private PasswordEncoder passwordEncoder;
 
     @Test
-    void testCreateUser() {
-        User user = new User();
+    void testCreateUser_Success() {
+        User user = User.builder()
+            .username("elias")
+            .password("123456")
+            .email("joao@gmail.com")
+            .build();
+
+        Mockito.when(userRepository.existsByUsername("elias")).thenReturn(false);
+        Mockito.when(userRepository.existsByEmail("joao@gmail.com")).thenReturn(false);
+        Mockito.when(passwordEncoder.encode("123456")).thenReturn("encryptedPassword");
+
+        Mockito.when(userRepository.save(Mockito.any(User.class)))
+            .thenAnswer(invocation -> {
+                User saved = invocation.getArgument(0);
+                saved.setId(1L);
+                saved.setUuid(UUID.randomUUID());
+                saved.setCreateAt(LocalDateTime.now());
+                return saved;
+            });
+
+        User created = userService.createUser(user);
         
-        System.out.println(user);
+        assertNotNull(created.getUuid());
+        assertNotNull(created.getId());
+        assertEquals("elias", created.getUsername());
+        assertEquals("joao@gmail.com", created.getEmail());
+        assertEquals("ACTIVE", created.getStatus());
+        assertEquals("encryptedPassword", created.getPassword());
+        assertNotNull(created.getCreateAt());
     }
 
-    @Test
-    void testExistsByEmail() {
+    // @Test
+    // void testExistsByEmail() {
 
-    }
+    // }
 
-    @Test
-    void testExistsByUsername() {
+    // @Test
+    // void testExistsByUsername() {
 
-    }
+    // }
 
-    @Test
-    void testFindByUsername() {
+    // @Test
+    // void testFindByUsername() {
 
-    }
+    // }
 
-    @Test
-    void testLogin() {
+    // @Test
+    // void testLogin() {
 
-    }
+    // }
 
-    @Test
-    void testPasswordsDoNotMatch() {
+    // @Test
+    // void testPasswordsDoNotMatch() {
 
-    }
+    // }
 }
