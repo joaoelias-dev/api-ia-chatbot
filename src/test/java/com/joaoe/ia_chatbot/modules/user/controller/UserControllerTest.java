@@ -23,7 +23,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.joaoe.ia_chatbot.modules.user.dto.response.CreatedUserDTOResponse;
-import com.joaoe.ia_chatbot.modules.user.model.User;
+import com.joaoe.ia_chatbot.modules.user.model.UserAccount;
 import com.joaoe.ia_chatbot.modules.user.service.UserService;
 
 @WebMvcTest(UserController.class)
@@ -59,9 +59,9 @@ public class UserControllerTest {
 
         Mockito.when((userService).passwordsDoNotMatch("123", "123")).thenReturn(false);
 
-        Mockito.when(userService.createUser(Mockito.any(User.class)))
+        Mockito.when(userService.createUser(Mockito.any(UserAccount.class)))
             .thenAnswer(invocation -> {
-                User user = invocation.getArgument(0);
+                UserAccount user = invocation.getArgument(0);
                 user.setUuid(response.getUuid());
                 user.setStatus(response.getStatus());
                 return user;
@@ -120,7 +120,7 @@ public class UserControllerTest {
             }
             """;
         
-        Mockito.when(userService.login("joao", "1234567")).thenReturn(new User());
+        Mockito.when(userService.login("joao", "1234567")).thenReturn(new UserAccount());
 
         mockMvc.perform(MockMvcRequestBuilders.post("/users/login")
             .contentType(MediaType.APPLICATION_JSON)
@@ -138,7 +138,7 @@ public class UserControllerTest {
             }
             """;
         
-        Mockito.when(userService.login("joao", "1234567")).thenReturn(new User());
+        Mockito.when(userService.login("joao", "1234567")).thenReturn(new UserAccount());
 
         mockMvc.perform(MockMvcRequestBuilders.post("/users/login")
             .contentType(MediaType.APPLICATION_JSON)

@@ -14,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
-import com.joaoe.ia_chatbot.modules.user.model.User;
+import com.joaoe.ia_chatbot.modules.user.model.UserAccount;
 import com.joaoe.ia_chatbot.modules.user.repository.UserRepository;
 
 @SpringBootTest
@@ -32,7 +32,7 @@ public class UserServiceTest {
 
     @Test
     void testCreateUser_Success() {
-        User user = User.builder()
+        UserAccount user = UserAccount.builder()
             .username("elias")
             .password("123456")
             .email("joao@gmail.com")
@@ -42,16 +42,16 @@ public class UserServiceTest {
         Mockito.when(userRepository.existsByEmail("joao@gmail.com")).thenReturn(false);
         Mockito.when(passwordEncoder.encode("123456")).thenReturn("encryptedPassword");
 
-        Mockito.when(userRepository.save(Mockito.any(User.class)))
+        Mockito.when(userRepository.save(Mockito.any(UserAccount.class)))
             .thenAnswer(invocation -> {
-                User saved = invocation.getArgument(0);
+                UserAccount saved = invocation.getArgument(0);
                 saved.setId(1L);
                 saved.setUuid(UUID.randomUUID());
                 saved.setCreateAt(LocalDateTime.now());
                 return saved;
             });
 
-        User created = userService.createUser(user);
+        UserAccount created = userService.createUser(user);
         
         assertNotNull(created.getUuid());
         assertNotNull(created.getId());

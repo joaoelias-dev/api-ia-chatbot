@@ -43,7 +43,7 @@ public class BearerTokenAuthFilter extends OncePerRequestFilter {
 
         UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(
-                            rtoken.getToken(), // Você pode passar o ID, o email, ou até o próprio objeto User
+                            rtoken.getToken(), // Você pode passar o ID, o email, ou até o próprio objeto UserAccount
                             null,
                             Collections.emptyList() // Sem roles no momento. Pode configurar roles futuramente se quiser.
                     );

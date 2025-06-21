@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.joaoe.ia_chatbot.modules.user.dto.request.CreateUserDTORequest;
 import com.joaoe.ia_chatbot.modules.user.dto.request.LoginDTO;
 import com.joaoe.ia_chatbot.modules.user.dto.response.CreatedUserDTOResponse;
-import com.joaoe.ia_chatbot.modules.user.model.User;
+import com.joaoe.ia_chatbot.modules.user.model.UserAccount;
 import com.joaoe.ia_chatbot.modules.user.service.UserService;
 
 import jakarta.validation.Valid;
@@ -28,7 +28,7 @@ public class UserController {
 
         userService.passwordsDoNotMatch(createUserDTORequest.getPassword1(), createUserDTORequest.getPassword2());
 
-        User user = User.builder()
+        UserAccount user = UserAccount.builder()
             .email(createUserDTORequest.getEmail())
             .password(createUserDTORequest.getPassword1())
             .username(createUserDTORequest.getUsername())

@@ -13,7 +13,7 @@ import com.joaoe.ia_chatbot.modules.user.exception.EmailAlreadyExistsException;
 import com.joaoe.ia_chatbot.modules.user.exception.PasswordDoNotMatch;
 import com.joaoe.ia_chatbot.modules.user.exception.UsernameAlreadyExistsException;
 import com.joaoe.ia_chatbot.modules.user.exception.UsernameNotFound;
-import com.joaoe.ia_chatbot.modules.user.model.User;
+import com.joaoe.ia_chatbot.modules.user.model.UserAccount;
 import com.joaoe.ia_chatbot.modules.user.repository.UserRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +32,7 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User createUser(User user) {
+    public UserAccount createUser(UserAccount user) {
 
         if(existsByUsername(user.getUsername())){
             throw new UsernameAlreadyExistsException(user.getUsername());
@@ -50,9 +50,9 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User login(String username, String pass){
-        User user = findByUsername(username).orElseThrow(
-            () -> new UsernameNotFound("User not found")
+    public UserAccount login(String username, String pass){
+        UserAccount user = findByUsername(username).orElseThrow(
+            () -> new UsernameNotFound("UserAccount not found")
         );
 
         if(!passwordEncoder.matches(pass, user.getPassword())){
@@ -70,7 +70,7 @@ public class UserService {
         return true;
     }
 
-    public Optional<User> findByUsername(String username){
+    public Optional<UserAccount> findByUsername(String username){
         return userRepository.findByUsername(username);
     }
 
