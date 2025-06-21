@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.joaoe.ia_chatbot.modules.user.exception.EmailAlreadyExistsException;
-import com.joaoe.ia_chatbot.modules.user.exception.PasswordDoNotMacth;
+import com.joaoe.ia_chatbot.modules.user.exception.PasswordDoNotMatch;
 import com.joaoe.ia_chatbot.modules.user.exception.UsernameAlreadyExistsException;
 import com.joaoe.ia_chatbot.modules.user.exception.UsernameNotFound;
 
@@ -82,8 +82,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(apiError);
     }
 
-    @ExceptionHandler(PasswordDoNotMacth.class)
-    public ResponseEntity<ApiError> passwordsDoNotMatch(PasswordDoNotMacth ex, HttpServletRequest request){
+    @ExceptionHandler(PasswordDoNotMatch.class)
+    public ResponseEntity<ApiError> passwordsDoNotMatch(PasswordDoNotMatch ex, HttpServletRequest request){
         ApiError apiError = new ApiError(LocalDateTime.now(),
             request.getRequestURI(),
             ex.getMessage(),
@@ -107,4 +107,18 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiError);
     }
+
+    @ExceptionHandler(UnsupportedOperationException.class)
+    public ResponseEntity<ApiError> unsupportedOperationException(UnsupportedOperationException ex, HttpServletRequest request){
+        ApiError apiError = new ApiError(LocalDateTime.now(),
+            request.getRequestURI(),
+            ex.getMessage(),
+            HttpStatus.NOT_IMPLEMENTED.value(),
+            HttpStatus.NOT_IMPLEMENTED.name(),
+            List.of(ex.getMessage())
+        );
+
+        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(apiError);
+    }
+    
 }

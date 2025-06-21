@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @RestController
-@RequestMapping("/v1/chat")
+@RequestMapping("/v1/chats")
 public class OllamaController {
     
     @Autowired
@@ -28,12 +28,13 @@ public class OllamaController {
 
         String response = "";
         try {
+            System.out.println(messageOllamaDTO.getPrompt());
             ObjectMapper mapper = new ObjectMapper();
 
             String json = mapper.writeValueAsString(messageOllamaDTO);
             
             response = ollamaService.sendPrompt(json);
-    
+            System.out.println(response);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Ocorreu um erro interno!");
         }

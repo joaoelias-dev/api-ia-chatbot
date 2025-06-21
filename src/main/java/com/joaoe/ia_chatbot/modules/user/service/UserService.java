@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.joaoe.ia_chatbot.modules.user.exception.EmailAlreadyExistsException;
-import com.joaoe.ia_chatbot.modules.user.exception.PasswordDoNotMacth;
+import com.joaoe.ia_chatbot.modules.user.exception.PasswordDoNotMatch;
 import com.joaoe.ia_chatbot.modules.user.exception.UsernameAlreadyExistsException;
 import com.joaoe.ia_chatbot.modules.user.exception.UsernameNotFound;
 import com.joaoe.ia_chatbot.modules.user.model.User;
@@ -65,7 +65,7 @@ public class UserService {
     // Verify pass1 to pass2 to create a new user
     public boolean passwordsDoNotMatch(String pass1, String pass2){
         if(!pass1.equals(pass2)){
-            throw new PasswordDoNotMacth("Passwords do not match");
+            throw new PasswordDoNotMatch("Passwords do not match");
         }
         return true;
     }
