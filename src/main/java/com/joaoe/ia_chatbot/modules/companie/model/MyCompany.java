@@ -1,13 +1,16 @@
-package com.joaoe.ia_chatbot.modules.token.model;
+package com.joaoe.ia_chatbot.modules.companie.model;
 
-import java.time.Instant;
 import java.util.UUID;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,13 +19,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "tokens")
+@Table(name = "my_company")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Token {
+public class MyCompany {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,16 +34,7 @@ public class Token {
     @Column(nullable = false, columnDefinition = "uuid", insertable = false, updatable = false)
     private UUID uuid;
 
-    @Column(name = "token")
-    private String token;
-
-    @Column(name = "descricao")
-    private String descricao;
-
-    @Column(name = "validade")
-    private Instant validade;
-
-    @Column(name = "status")
-    private String status;
-
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id", nullable = false)
+    private Company company;
 }

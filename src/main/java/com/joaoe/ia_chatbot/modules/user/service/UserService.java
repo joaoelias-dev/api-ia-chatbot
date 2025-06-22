@@ -1,6 +1,6 @@
 package com.joaoe.ia_chatbot.modules.user.service;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +42,7 @@ public class UserService {
             throw new EmailAlreadyExistsException(user.getEmail());
         }
         user.setStatus("ACTIVE");
-        user.setCreateAt(LocalDateTime.now());
+        user.setCreateAt(Instant.now());
 
         // Crypt the pass
         user.setPassword(passwordEncoder.encode(user.getPassword()));

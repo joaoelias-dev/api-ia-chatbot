@@ -3,7 +3,7 @@ package com.joaoe.ia_chatbot.modules.user.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
@@ -47,7 +47,7 @@ public class UserServiceTest {
                 UserAccount saved = invocation.getArgument(0);
                 saved.setId(1L);
                 saved.setUuid(UUID.randomUUID());
-                saved.setCreateAt(LocalDateTime.now());
+                saved.setCreateAt(Instant.now());
                 return saved;
             });
 

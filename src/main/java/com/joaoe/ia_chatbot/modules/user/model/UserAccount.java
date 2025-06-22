@@ -1,6 +1,6 @@
 package com.joaoe.ia_chatbot.modules.user.model;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -9,6 +9,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,7 +18,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users_accounts")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -35,9 +37,13 @@ public class UserAccount {
     private String email;
 
     @Column(name = "username", unique = true)
+    @NotBlank(message = "Field 'username' is required")
+    @Size(min = 3, message = "Username should not be less than 3")
     private String username;
 
     @Column(name = "password")
+    @NotBlank(message = "Field 'password1' is required")
+    @Size(min = 6, message = "Password should not be less than 6")
     private String password;
 
     @Column(name = "status")
@@ -47,8 +53,8 @@ public class UserAccount {
     private boolean deleted;
 
     @Column(name = "created_at")
-    private LocalDateTime createAt;
+    private Instant createAt;
 
     @Column(name = "updated_at")
-    private LocalDateTime updateAt;
+    private Instant updateAt;
 }

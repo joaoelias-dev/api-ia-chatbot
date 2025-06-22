@@ -4,7 +4,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,7 @@ public class TokenService {
         Token token = new Token();
         token.setDescricao("");
         token.setStatus("ACTIVATE");
-        token.setValidade(LocalDateTime.now().plusMonths(1));
+        token.setValidade(Instant.now());
         token.setToken(randomPart + "" + hashTimeStamp(timestampPart));
 
         this.createToken(token);
@@ -66,7 +65,7 @@ public class TokenService {
 
     public boolean isTokenValid(Token token){
 
-        if(token.getValidade().isBefore(LocalDateTime.now())){
+        if(token.getValidade().isBefore(Instant.now())){
             throw new TokenExpired(String.format("Token expired: %s", token.getValidade()));
         }
         return true;
