@@ -1,4 +1,4 @@
-package com.joaoe.ia_chatbot.modules.companie.model;
+package com.joaoe.ia_chatbot.modules.company.model;
 
 import java.util.UUID;
 

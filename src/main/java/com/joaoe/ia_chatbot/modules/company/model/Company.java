@@ -1,4 +1,4 @@
-package com.joaoe.ia_chatbot.modules.companie.model;
+package com.joaoe.ia_chatbot.modules.company.model;
 
 import java.time.Instant;
 import java.util.List;
@@ -41,6 +41,7 @@ public class Company {
     private String brandName;
 
     @Column(name = "legal_name")
+    @NotBlank(message = "The company must have at least a legal name")
     private String legalName;
 
     @Column(name = "taxId")
