@@ -42,7 +42,7 @@ public class UserAccount {
     private String username;
 
     @Column(name = "password")
-    @NotBlank(message = "Field 'password1' is required")
+    @NotBlank(message = "Field 'password' is required")
     @Size(min = 6, message = "Password should not be less than 6")
     private String password;
 

@@ -11,7 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.joaoe.ia_chatbot.modules.ollama.dto.request.RequestMessageOllamaDTO;
+import com.joaoe.ia_chatbot.modules.ollama.dto.request.RequestMessageOllama;
 import com.joaoe.ia_chatbot.modules.ollama.service.OllamaService;
 
 @ExtendWith(MockitoExtension.class)
@@ -28,7 +28,7 @@ public class OllamaControllerTest {
         
         String respostaEsperada = "20";
 
-        RequestMessageOllamaDTO request = RequestMessageOllamaDTO.builder()
+        RequestMessageOllama request = RequestMessageOllama.builder()
                 .model("llama2")
                 .prompt("quanto é 10+10?")
                 .stream(false)

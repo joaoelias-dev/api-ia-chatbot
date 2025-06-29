@@ -14,7 +14,7 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RequestMessageOllamaDTO implements Serializable {
+public class RequestMessageOllama implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
@@ -25,5 +25,7 @@ public class RequestMessageOllamaDTO implements Serializable {
     private String prompt;
 
     private boolean stream;
+
+    private String system;
     
 }

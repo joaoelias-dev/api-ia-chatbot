@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.joaoe.ia_chatbot.modules.ollama.dto.request.RequestMessageOllamaDTO;
+import com.joaoe.ia_chatbot.modules.ollama.dto.request.RequestMessageOllama;
 import com.joaoe.ia_chatbot.modules.ollama.service.OllamaService;
 
 import jakarta.validation.Valid;
@@ -24,14 +24,14 @@ public class OllamaController {
     OllamaService ollamaService;
 
     @PostMapping
-    public ResponseEntity<?> sendMessage(@RequestBody @Valid RequestMessageOllamaDTO messageOllamaDTO){
+    public ResponseEntity<?> sendMessage(@RequestBody @Valid RequestMessageOllama messageOllama){
 
         String response = "";
         try {
-            System.out.println(messageOllamaDTO.getPrompt());
+            System.out.println(messageOllama.getPrompt());
             ObjectMapper mapper = new ObjectMapper();
 
-            String json = mapper.writeValueAsString(messageOllamaDTO);
+            String json = mapper.writeValueAsString(messageOllama);
             
             response = ollamaService.sendPrompt(json);
             System.out.println(response);
@@ -40,4 +40,7 @@ public class OllamaController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
+
+    
+    
 }

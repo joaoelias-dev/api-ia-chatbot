@@ -20,7 +20,7 @@ public class OllamaService {
         System.out.println(prompt);
         try {
             resposta =  webClient.post()
-                .uri("/api/generate")
+                .uri("/api/chat")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(prompt)
                 .retrieve()
