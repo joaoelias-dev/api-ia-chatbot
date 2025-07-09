@@ -15,10 +15,10 @@ import com.joaoe.ia_chatbot.modules.company.service.CompanyAdressService;
 import com.joaoe.ia_chatbot.modules.company.service.CompanyService;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,18 +28,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("companies")
+@RequiredArgsConstructor
 public class CompanyController {
     
-    @Autowired
-    private CompanyService companyService;
-
-    @Autowired
-    private CompanyMapper companyMapper;
-    @Autowired
-    private CompanyAdressMapper companyAdressMapper;
-
-    @Autowired
-    private CompanyAdressService companyAdressService;
+    private final CompanyService companyService;
+    private final CompanyMapper companyMapper;
+    private final CompanyAdressMapper companyAdressMapper;
+    private final CompanyAdressService companyAdressService;
 
     @PostMapping
     public ResponseEntity<CreateCompanyResponse> createCompany(@RequestBody @Valid CreateCompanyRequest createCompanyRequest) {
