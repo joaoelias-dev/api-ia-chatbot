@@ -6,19 +6,19 @@ import com.joaoe.ia_chatbot.modules.ollamaConversation.model.OllamaConversation;
 import com.joaoe.ia_chatbot.modules.ollamaConversation.repository.OllamaConversationRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class OllamaConversationService {
 
-    @Autowired
-    private OllamaConversationRepository ollamaConversationRepository;
-    @Autowired
-    private CustomerService customerService;
+    private final OllamaConversationRepository ollamaConversationRepository;
+    private final CustomerService customerService;
 
     public OllamaConversation createOllamaConversation(UUID customerUUID){
 

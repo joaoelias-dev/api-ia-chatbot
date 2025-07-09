@@ -3,7 +3,6 @@ package com.joaoe.ia_chatbot.config;
 import java.io.IOException;
 import java.util.Collections;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,18 +16,14 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 
 @Component
+@RequiredArgsConstructor
 public class BearerTokenAuthFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private TokenService tokenService;
-    @Autowired
+    private final TokenService tokenService;
     private final PublicRoutes publicRoutes;
-
-    public BearerTokenAuthFilter(PublicRoutes publicRoutes) {
-        this.publicRoutes = publicRoutes;
-    }
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,@NonNull HttpServletResponse response, @NonNull FilterChain filterChain)

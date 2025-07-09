@@ -4,16 +4,17 @@ import com.joaoe.ia_chatbot.modules.customer.exception.CustomerInvalidData;
 import com.joaoe.ia_chatbot.modules.customer.model.Customer;
 import com.joaoe.ia_chatbot.modules.customer.repository.CustomerRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class CustomerService {
 
-    @Autowired
-    private CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
 
     public Customer findCustomerById(Long id){
         return customerRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Customer not find"));

@@ -6,7 +6,6 @@ import java.util.UUID;
 
 import com.joaoe.ia_chatbot.modules.user.repository.UserAccountRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,21 +17,17 @@ import com.joaoe.ia_chatbot.modules.user.exception.UsernameAlreadyExistsExceptio
 import com.joaoe.ia_chatbot.modules.user.exception.UsernameNotFound;
 import com.joaoe.ia_chatbot.modules.user.model.UserAccount;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Transactional
 @Slf4j
+@RequiredArgsConstructor
 public class UserAccountService {
 
     private final PasswordEncoder passwordEncoder;
-    
-    @Autowired
-    private UserAccountRepository userAccountRepository;
-
-    UserAccountService(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
+    private final UserAccountRepository userAccountRepository;
 
     public UserAccount createUser(UserAccount user) {
 

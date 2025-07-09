@@ -3,14 +3,16 @@ package com.joaoe.ia_chatbot.modules.appointment.service;
 import com.joaoe.ia_chatbot.modules.appointment.exception.AppointmentValidation;
 import com.joaoe.ia_chatbot.modules.appointment.model.Appointment;
 import com.joaoe.ia_chatbot.modules.appointment.repository.AppointmentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class AppointmentService {
 
-    @Autowired
-    private AppointmentRepository appointmentRepository;
+    private final AppointmentRepository appointmentRepository;
 
     public Appointment createAppointment(Appointment appointment){
 

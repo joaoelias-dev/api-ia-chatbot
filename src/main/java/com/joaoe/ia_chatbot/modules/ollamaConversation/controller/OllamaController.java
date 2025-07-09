@@ -22,7 +22,7 @@ public class OllamaController {
     private final OllamaConfigService ollamaConfigService;
     private final OllamaOptionsService ollamaOptionsService;
     private final OllamaConfigMapper ollamaConfigMapper;
-    
+      
     @PostMapping
     public ResponseEntity<?> createOllamaConfig(@RequestBody @Valid CreateOllamaConfigRequest createOllamaConfigRequest){
 

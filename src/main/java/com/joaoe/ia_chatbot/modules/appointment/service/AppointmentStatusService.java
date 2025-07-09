@@ -3,14 +3,16 @@ package com.joaoe.ia_chatbot.modules.appointment.service;
 import com.joaoe.ia_chatbot.modules.appointment.model.AppointmentsStatus;
 import com.joaoe.ia_chatbot.modules.appointment.repository.AppointmentStatusRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class AppointmentStatusService {
 
-    @Autowired
-    private AppointmentStatusRepository appointmentStatusRepository;
+    private final AppointmentStatusRepository appointmentStatusRepository;
+
     public AppointmentsStatus findByStatus(String status){
         return appointmentStatusRepository.findByStatus(status)
                 .orElseThrow(() -> new EntityNotFoundException("Status not found"));

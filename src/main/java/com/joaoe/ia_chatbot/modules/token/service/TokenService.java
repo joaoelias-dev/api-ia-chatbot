@@ -6,7 +6,6 @@ import java.security.SecureRandom;
 import java.time.Instant;
 import java.util.Base64;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.joaoe.ia_chatbot.modules.token.exception.TokenExpired;
@@ -14,11 +13,13 @@ import com.joaoe.ia_chatbot.modules.token.exception.TokenNotFound;
 import com.joaoe.ia_chatbot.modules.token.model.Token;
 import com.joaoe.ia_chatbot.modules.token.repository.TokenRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class TokenService {
-    
-    @Autowired
-    TokenRepository tokenRepository;
+
+    private final TokenRepository tokenRepository;
 
     public Token generatedToken(){
         SecureRandom secureRandom = new SecureRandom();
