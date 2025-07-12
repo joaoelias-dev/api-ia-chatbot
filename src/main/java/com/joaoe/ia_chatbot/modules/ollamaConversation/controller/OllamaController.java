@@ -4,7 +4,6 @@ import com.joaoe.ia_chatbot.modules.ollamaConversation.dto.ollamaConfig.request.
 import com.joaoe.ia_chatbot.modules.ollamaConversation.mapper.OllamaConfigMapper;
 import com.joaoe.ia_chatbot.modules.ollamaConversation.model.Ollama.OllamaConfig;
 import com.joaoe.ia_chatbot.modules.ollamaConversation.service.OllamaConfigService;
-import com.joaoe.ia_chatbot.modules.ollamaConversation.service.OllamaOptionsService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class OllamaController {
 
     private final OllamaConfigService ollamaConfigService;
-    private final OllamaOptionsService ollamaOptionsService;
     private final OllamaConfigMapper ollamaConfigMapper;
       
     @PostMapping

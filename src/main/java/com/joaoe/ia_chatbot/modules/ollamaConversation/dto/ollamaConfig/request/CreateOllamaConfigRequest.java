@@ -19,7 +19,7 @@ public class CreateOllamaConfigRequest {
     private String format;
     private String system;
     private String template;
-    private CreateOllamaConfigRequest options;
+    private CreateOllamaOptionsRequest options;
     private boolean stream;
     private boolean raw;
     private String keep_alive;

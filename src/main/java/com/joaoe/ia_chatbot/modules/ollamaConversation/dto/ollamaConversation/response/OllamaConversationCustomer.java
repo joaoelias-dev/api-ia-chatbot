@@ -1,4 +1,4 @@
-package com.joaoe.ia_chatbot.modules.ollamaConversation.dto.ollamaConversation.response.createOllamaConversation;
+package com.joaoe.ia_chatbot.modules.ollamaConversation.dto.ollamaConversation.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

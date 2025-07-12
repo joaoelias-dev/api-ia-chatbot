@@ -1,6 +1,8 @@
 package com.joaoe.ia_chatbot.modules.ollamaConversation.model;
 
 import com.joaoe.ia_chatbot.modules.customer.model.Customer;
+import com.joaoe.ia_chatbot.modules.ollamaConversation.model.Ollama.OllamaConfig;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -38,4 +40,8 @@ public class OllamaConversation {
 
     @OneToMany(mappedBy = "conversation", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OllamaMessage> messages;
+
+    @ManyToOne
+    @JoinColumn(name = "ollama_config_id")
+    private OllamaConfig ollamaConfig;
 }

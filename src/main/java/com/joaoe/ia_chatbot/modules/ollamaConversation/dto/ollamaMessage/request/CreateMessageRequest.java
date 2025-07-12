@@ -15,12 +15,15 @@ import java.util.UUID;
 @Builder
 public class CreateMessageRequest {
 
-    @NotBlank(message = "invalid role")
+    @NotBlank(message = "role: invalid role")
     private String role;
 
-    @NotBlank(message = "invalid content")
+    @NotBlank(message = "content: invalid content")
     private String content;
 
-    @NotNull
+    @NotNull(message = "ollamaConfigUuid: cant not be null")
+    private UUID ollamaConfigUuid;
+
+    @NotNull(message = "conversationUuid: cant not be null")
     private UUID conversationUuid;
 }

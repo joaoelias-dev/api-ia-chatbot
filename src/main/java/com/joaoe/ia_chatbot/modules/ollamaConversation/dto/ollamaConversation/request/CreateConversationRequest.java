@@ -1,4 +1,4 @@
-package com.joaoe.ia_chatbot.modules.ollamaConversation.dto.ollamaConversation.request.createConversationRequest;
+package com.joaoe.ia_chatbot.modules.ollamaConversation.dto.ollamaConversation.request;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;

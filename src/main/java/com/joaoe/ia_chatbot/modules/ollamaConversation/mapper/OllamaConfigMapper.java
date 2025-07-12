@@ -1,12 +1,11 @@
 package com.joaoe.ia_chatbot.modules.ollamaConversation.mapper;
 
 import com.joaoe.ia_chatbot.modules.ollamaConversation.dto.ollamaConfig.request.CreateOllamaConfigRequest;
+import com.joaoe.ia_chatbot.modules.ollamaConversation.dto.ollamaConfig.request.CreateOllamaOptionsRequest;
 import com.joaoe.ia_chatbot.modules.ollamaConversation.model.Ollama.OllamaConfig;
 import com.joaoe.ia_chatbot.modules.ollamaConversation.model.Ollama.OllamaOptions;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.math.BigDecimal;
 
 @Component
 @RequiredArgsConstructor
@@ -30,29 +29,13 @@ public class OllamaConfigMapper {
                 .build();
     }
 
-    private OllamaOptions toOptionsEntity(CreateOllamaConfigRequest optionsRequest) {
+    private OllamaOptions toOptionsEntity(CreateOllamaOptionsRequest optionsRequest) {
         if (optionsRequest == null) return null;
 
         return OllamaOptions.builder()
-                .temperature(parseBigDecimal(optionsRequest.getFormat())) // substitua pelo getter correto
-                .top_p(parseBigDecimal(optionsRequest.getSuffix()))       // substitua pelo getter correto
-                .num_predict(parseInteger(optionsRequest.getTemplate())) // substitua pelo getter correto
+                .temperature(optionsRequest.getTemperature()) // substitua pelo getter correto
+                .top_p(optionsRequest.getTop_p())       // substitua pelo getter correto
+                .num_predict(optionsRequest.getNum_predict()) // substitua pelo getter correto
                 .build();
-    }
-
-    private BigDecimal parseBigDecimal(String value) {
-        try {
-            return value != null ? new BigDecimal(value) : null;
-        } catch (NumberFormatException e) {
-            return null;
-        }
-    }
-
-    private Integer parseInteger(String value) {
-        try {
-            return value != null ? Integer.parseInt(value) : null;
-        } catch (NumberFormatException e) {
-            return null;
-        }
     }
 }

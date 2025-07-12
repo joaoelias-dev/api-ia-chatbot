@@ -27,14 +27,15 @@ public class OllamaMessage {
 
     @Column(name = "content")
     private String content;
+
     @Column(name = "created_at")
     private Instant createdAt;
 
-    @Column(name = "updated_at")
-    private Instant updatedAt;
+    // @Column(name = "updated_at")
+    // private Instant updatedAt;
 
-    @Column(name = "deleted_at")
-    private Instant deleted;
+    // @Column(name = "deleted_at")
+    // private Instant deleted;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "conversation_id")
