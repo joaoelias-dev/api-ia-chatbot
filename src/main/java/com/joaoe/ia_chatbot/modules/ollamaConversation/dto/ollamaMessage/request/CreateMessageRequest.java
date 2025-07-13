@@ -20,10 +20,4 @@ public class CreateMessageRequest {
 
     @NotBlank(message = "content: invalid content")
     private String content;
-
-    @NotNull(message = "ollamaConfigUuid: cant not be null")
-    private UUID ollamaConfigUuid;
-
-    @NotNull(message = "conversationUuid: cant not be null")
-    private UUID conversationUuid;
 }

@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.joaoe.ia_chatbot.modules.ollamaConversation.dto.ollamaMessage.request.ollamaMessageApi.MessagesOllama;
 import com.joaoe.ia_chatbot.modules.ollamaConversation.dto.ollamaMessage.request.ollamaMessageApi.OllamaMessageApiDTO;
@@ -39,7 +38,7 @@ public class OllamaMessaApiMapper {
 
             return objectMapper.writeValueAsString(apiMessage);
 
-        } catch (JsonProcessingException e) {
+        } catch (Exception e) {
             throw new RuntimeException("Occurs an error");
         }
     }

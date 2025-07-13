@@ -1,10 +1,12 @@
 package com.joaoe.ia_chatbot.modules.ollamaConversation.service;
 
+import com.joaoe.ia_chatbot.modules.ollamaConversation.dto.ollamaMessage.response.OllamaMessageResponse;
 import com.joaoe.ia_chatbot.modules.ollamaConversation.mapper.OllamaMessaApiMapper;
 import com.joaoe.ia_chatbot.modules.ollamaConversation.model.OllamaConversation;
 import com.joaoe.ia_chatbot.modules.ollamaConversation.model.OllamaMessage;
 import com.joaoe.ia_chatbot.modules.ollamaConversation.model.Ollama.OllamaConfig;
 import com.joaoe.ia_chatbot.modules.ollamaConversation.repository.OllamaMessageRepository;
+import com.joaoe.ia_chatbot.shared.conversorJSON.JacksonConversor;
 
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
@@ -37,9 +39,12 @@ public class OllamaMessageService {
     public String sendMessage(OllamaConversation conversation, OllamaMessage message, OllamaConfig ollamaConfig) {
     
         List<OllamaMessage> messages = this.returnMessagesFromConversation(conversation.getId());
+        OllamaMessage systemMessage = this.returnSystemMessage(conversation.getId());
         
+        messages.addFirst(systemMessage);
+
         String json = buildMessageToOllama(conversation, messages, ollamaConfig);
-        System.out.println(json);
+
         Mono<String> responseOllama = WebClient.create().post()
             .uri(urlOllama) // Altere para o endpoint correto
             //.header("Authorization", "Bearer SEU_TOKEN") // Se necessário
@@ -55,17 +60,28 @@ public class OllamaMessageService {
             )
         .bodyToMono(String.class);
 
-        return responseOllama.block();
+        String response = responseOllama.block();
+
+        OllamaMessageResponse responseMessage = JacksonConversor.fromJson(response,OllamaMessageResponse.class);
+        
+        OllamaMessage ollamaMessage = new OllamaMessage();
+        ollamaMessage.setContent(responseMessage.getMessage().getContent());
+        ollamaMessage.setRole("assistant");
+
+        createMessage(conversation.getUuid(), ollamaMessage, ollamaConfig); 
+
+        return response;
     }
 
     public List<OllamaMessage> returnMessagesFromConversation(Long conversationId){
         return ollamaMessageRepository.returnMessagesFromConversation(conversationId);
     }
 
-    private String buildMessageToOllama(OllamaConversation conversation, List<OllamaMessage> messages, OllamaConfig ollamaConfig){
-        String json = ollamaMessaApiMapper.buildMessageToOllama(conversation, messages , ollamaConfig);
-        return json;
-    }
+    public OllamaMessage returnSystemMessage(Long conversationId){
+        return ollamaMessageRepository.returnSystemMessage(conversationId);
+    } 
 
-    
+    private String buildMessageToOllama(OllamaConversation conversation, List<OllamaMessage> messages, OllamaConfig ollamaConfig){
+        return ollamaMessaApiMapper.buildMessageToOllama(conversation, messages , ollamaConfig);
+    }   
 }

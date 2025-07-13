@@ -14,4 +14,7 @@ public interface OllamaMessageRepository extends JpaRepository<OllamaMessage, Lo
 
     @Query("SELECT messages FROM OllamaMessage messages WHERE messages.conversation.id = :conversationId ORDER BY messages.createdAt ASC")
     public List<OllamaMessage> returnMessagesFromConversation(@Param("conversationId") Long conversationId);
+
+    @Query("SELECT messages FROM OllamaMessage messages WHERE messages.conversation.id = :conversationId AND messages.role = 'system' ORDER BY messages.createdAt ASC")
+    public OllamaMessage returnSystemMessage(@Param("conversationId") Long conversationId);
 }
